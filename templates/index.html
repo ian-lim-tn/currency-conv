@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Prevent clicking "enter key"  to submit form-->
+    <script>$(document).ready(function() {
+        $(window).keydown(function(event){
+          if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+          }
+        });
+      });
+    </script>
+
+<!-- <script>
+    document.getElementById("user-input").addEventListener("submit", function(event){
+      event.preventDefault()
+    });
+    </script> -->
     <title>Very cool currency converter!</title>
 </head>
 <body>
@@ -20,31 +37,37 @@
 <h6 style= "text-align:center;">This program converts MYR to USD, JPY or SGD!</h6>
 <p style= "text-align:center;">What's your MYR amount?</p>
 
-<form action="/convert" method="POST" name="amount">
+<!-- Mistake here -->
+<form action="/convert" method="POST" name="x"> <!--should not have used "name" in form but instead "name" to input-->
   <div class="form-row justify-content-center">
     <div class="col-3">
-      <input type="text" class="form-control" placeholder="RM">
+
+      <input type="number" name="amount" class="form-control" placeholder="RM"> <!-- once added name for input here, problem solved -->
+
+    </div>
+  </div>
+
+
+<p style= "text-align:center;">Please select your currency</p>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm text-center">
+        <button type="submit" name="btn-val" class="btn btn-light btn-lg btn-block" id="usd" value="USD">US Dollar (USD)</button>
+      </div>
+      <div class="col-sm text-center">
+        <button type="submit" name="btn-val" class="btn btn-light btn-lg btn-block" id="jpy" value="JPY">Japanese Yen (JPY)</button>
+      </div>
+      <div class="col-sm text-center">
+        <button type="submit" name="btn-val" class="btn btn-light btn-lg btn-block" id="sgd" value="SGD">Singapore Dollar (SGD)</button>
+      </div>
     </div>
   </div>
 </form>
 
-<p style= "text-align:center;">Please select your currency</p>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm text-center">
-      <button type="button" class="btn btn-light btn-lg btn-block" id="usd">US Dollar (USD)</button>
-    </div>
-    <div class="col-sm text-center">
-      <button type="button" class="btn btn-light btn-lg btn-block" id="jpy">Japanese Yen (JPY)</button>
-    </div>
-    <div class="col-sm text-center">
-      <button type="button" class="btn btn-light btn-lg btn-block" id="sgd">Singapore Dollar (SGD)</button>
-    </div>
-  </div>
-</div>
-
-
-<textarea readonly id="anything" placeholder="Result for USD, JPY, SGD"></textarea>
+<textarea readonly id="anything" placeholder="Result will be displayed here">{{ conversion }}</textarea>
 </body>
 </html>
+
